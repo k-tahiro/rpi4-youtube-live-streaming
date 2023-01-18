@@ -2,9 +2,9 @@ from logging import basicConfig
 
 import typer
 
-from .devices.capture_board import CaptureBoard
-from .devices.usb_mic import UsbMic
-from .youtube_live import YouTubeLive
+from .streamer.devices.capture_board import CaptureBoard
+from .streamer.devices.usb_mic import UsbMic
+from .streamer.youtube_live import YouTubeLive
 
 
 def _main(
