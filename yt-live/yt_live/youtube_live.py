@@ -64,7 +64,6 @@ class YouTubeLive:
             video_bitrate=self.video_bitrate,
             audio_bitrate=self.AUDIO_BITRATE,
             format="flv",
-            fpsmax=60,
             s=self.video_size,
             vcodec=self.video_codec,
             ar=self.AUDIO_SAMPLE_RATE,
