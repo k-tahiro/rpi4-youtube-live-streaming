@@ -52,7 +52,7 @@ class YouTubeLive:
                 inputs=2,
                 duration="longest",
                 dropout_transition=0,
-                weights="0.33 1",
+                weights="0.25 1",
             )
         else:
             astream = capture_board.astream
