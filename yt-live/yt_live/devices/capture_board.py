@@ -1,3 +1,5 @@
+import subprocess
+
 from .base import Device
 
 
@@ -26,3 +28,18 @@ class CaptureBoard(Device):
         )
 
         self.video_size = video_size
+
+    @classmethod
+    def from_name(cls, name: str, video_size: str = "480p") -> "CaptureBoard":
+        cp = subprocess.run(
+            ["v4l2-ctl", "--list-devices"], capture_output=True, text=True
+        )
+        lines = cp.stdout.splitlines()
+        for i, line in enumerate(lines):
+            if name in line:
+                video_input = lines[i + 1].strip()
+                break
+        else:
+            raise RuntimeError(f'Unable to find "{name}" device')
+
+        return cls(video_input, video_size)
