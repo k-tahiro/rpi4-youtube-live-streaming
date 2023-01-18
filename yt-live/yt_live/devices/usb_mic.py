@@ -1,4 +1,5 @@
 import subprocess
+from typing import Optional
 
 from .base import Device
 
@@ -10,16 +11,16 @@ class UsbMic(Device):
         super().__init__(audio_fmt=self.AUDIO_FMT, audio_url=audio_url)
 
     @classmethod
-    def from_name(cls, name: str) -> "UsbMic":
+    def from_first_device(cls) -> Optional["UsbMic"]:
         cp = subprocess.run(
             ["pactl", "list", "short", "sources"], capture_output=True, text=True
         )
         lines = cp.stdout.splitlines()
-        for i, line in enumerate(lines):
-            if name in line:
+        for line in lines:
+            if "monitor" not in line:
                 audio_url = line.strip().split()[1].strip()
                 break
         else:
-            raise RuntimeError(f'Unable to find "{name}" device')
+            return None
 
         return cls(audio_url)
