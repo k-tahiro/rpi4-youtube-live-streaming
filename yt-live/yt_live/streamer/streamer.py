@@ -15,7 +15,7 @@ class VideoEncoding(NamedTuple):
     codec: str = "h264_omx"
 
 
-class YouTubeLive:
+class Streamer:
     STREAM_URL = "rtmp://a.rtmp.youtube.com/live2"
     VIDEO_ENCODING_MAPPING = {
         "720p": VideoEncoding("1280x720", "4000k"),

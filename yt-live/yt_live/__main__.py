@@ -4,7 +4,7 @@ import typer
 
 from .streamer.devices.capture_board import CaptureBoard
 from .streamer.devices.usb_mic import UsbMic
-from .streamer.youtube_live import YouTubeLive
+from .streamer.streamer import Streamer
 
 
 def _main(
@@ -19,8 +19,8 @@ def _main(
     capture_board = CaptureBoard.from_name(cb_name, input_size)
     usb_mic = UsbMic.from_first_device()
 
-    youtube_live = YouTubeLive(stream_key, output_size)
-    youtube_live.run(capture_board, usb_mic)
+    streamer = Streamer(stream_key, output_size)
+    streamer.run(capture_board, usb_mic)
 
 
 def main() -> None:
