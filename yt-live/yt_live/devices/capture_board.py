@@ -37,9 +37,9 @@ class CaptureBoard(Device):
         lines = cp.stdout.splitlines()
         for i, line in enumerate(lines):
             if name in line:
-                video_input = lines[i + 1].strip()
+                video_url = lines[i + 1].strip()
                 break
         else:
             raise RuntimeError(f'Unable to find "{name}" device')
 
-        return cls(video_input, video_size)
+        return cls(video_url, video_size)
