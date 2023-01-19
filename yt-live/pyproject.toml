@@ -19,6 +19,7 @@ yt_live = "yt_live.__main__:main"
 [tool.poetry.group.dev.dependencies]
 mypy = "^0.991"
 black = "^22.12.0"
+ipython = "<8"
 
 [build-system]
 requires = ["poetry-core"]
