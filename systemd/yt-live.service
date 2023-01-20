@@ -3,7 +3,6 @@ Description=YouTube Live
 After=network.target
 
 [Service]
-User=pi
 ExecStart=/home/pi/.local/bin/yt-live
 Restart=no
 
