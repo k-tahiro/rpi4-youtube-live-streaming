@@ -13,6 +13,7 @@ from .streamer.streamer import Streamer
 
 def _main(
     title: str = datetime.now().isoformat(),
+    privacy_status: str = "unlisted",
     cb_name: str = "MiraBox Capture",
     input_size: str = "480p",
     output_size: str = "480p",
@@ -29,7 +30,7 @@ def _main(
     youtube = YouTubeAPI.from_files(api_key, client_secrets_file, credentials_file)
     streamer = Streamer(youtube.stream_url, youtube.stream_key, output_size)
 
-    youtube.set_up_broadcast(title)
+    youtube.set_up_broadcast(title, privacy_status)
     streamer.run(capture_board, usb_mic)
 
 
