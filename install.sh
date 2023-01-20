@@ -10,7 +10,7 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 function main() {
     pushd "${SCRIPT_DIR}/yt-live" || return 1
     poetry build -f wheel
-    pip3 install "dist/$(ls dist | grep whl)"
+    pip3 install --force-reinstall "dist/$(ls dist | grep whl)"
     popd || return 0
 
     mkdir -p "${HOME}/.config/systemd/user"
