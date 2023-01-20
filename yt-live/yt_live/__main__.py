@@ -35,7 +35,15 @@ def _main(
     if discord_webhook_url:
         requests.post(
             discord_webhook_url,
-            json={"content": youtube.message},
+            json={
+                "embeds": [
+                    {
+                        "title": f"{youtube.title} on YouTube",
+                        "type": "link",
+                        "url": youtube.watch_url,
+                    }
+                ]
+            },
         )
 
     streamer.run(capture_board, usb_mic)
