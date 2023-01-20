@@ -23,15 +23,18 @@ def _main(
 ) -> None:
     basicConfig(level=log_level)
 
+    logger.info("Initializing devices...")
     capture_board = CaptureBoard.from_name(cb_name, input_size)
     usb_mic = UsbMic.from_first_device()
 
+    logger.info("Initializing objects...")
     api_key = os.environ["API_KEY"]
     client_secrets_file = Path(os.environ["CLIENT_SECRETS_FILE"])
     credentials_file = Path(os.getenv("CREDENTIALS_FILE", "token.pickle"))
     youtube = YouTubeAPI.from_files(api_key, client_secrets_file, credentials_file)
     streamer = Streamer(youtube.output_url, output_size)
 
+    logger.info("Setting up broadcast...")
     youtube.set_up_broadcast(title, privacy_status)
 
     discord_webhook_url = os.getenv("DISCORD_WEBHOOK_URL")
@@ -52,8 +55,11 @@ def _main(
         )
         logger.info(r)
 
+    logger.info("Streaming...")
     streamer.run(capture_board, usb_mic)
+    logger.info("Stream finished.")
 
+    logger.info("Going to conclude broadcasting.")
     youtube.conclude_broadcast()
     logger.info("Broadcasting finished!")
 
