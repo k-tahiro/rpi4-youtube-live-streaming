@@ -1,0 +1,12 @@
+[Unit]
+Description=YouTube Live
+After=network.target
+
+[Service]
+User=pi
+ExecStart=poetry run yt_live
+RestartSec=30
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
