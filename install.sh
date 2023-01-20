@@ -19,6 +19,7 @@ function main() {
     if [[ ! -f "${OVERRIDE_CONF}" ]]; then
         read -p "Please input API Key: " API_KEY
         read -p "Please input the path of client_secret.json: " CLIENT_SECRETS_FILE
+        read -p "Please input the title of broadcast: " BROADCAST_TITLE
         read -p "Please input the Discord webhook URL: " DISCORD_WEBHOOK_URL
 
         mkdir -p "${OVERRIDE_DIR}"
@@ -27,6 +28,7 @@ function main() {
 Environment=API_KEY=${API_KEY}
 Environment=CLIENT_SECRETS_FILE=${CLIENT_SECRETS_FILE}
 Environment=DISCORD_WEBHOOK_URL=${DISCORD_WEBHOOK_URL}
+Environment=BROADCAST_TITLE=${BROADCAST_TITLE}
 EOF
     fi
 

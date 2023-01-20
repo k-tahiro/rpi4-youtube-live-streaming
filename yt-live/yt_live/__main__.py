@@ -1,5 +1,4 @@
 import os
-from datetime import datetime
 from logging import basicConfig
 from pathlib import Path
 
@@ -13,7 +12,7 @@ from .streamer.streamer import Streamer
 
 
 def _main(
-    title: str = datetime.now().isoformat(),
+    title: str,
     privacy_status: str = "unlisted",
     cb_name: str = "MiraBox Capture",
     input_size: str = "480p",
