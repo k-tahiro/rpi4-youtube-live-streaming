@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 User=pi
-ExecStart=yt-live
+ExecStart=~/.local/bin/yt-live
 Restart=no
 
 [Install]
