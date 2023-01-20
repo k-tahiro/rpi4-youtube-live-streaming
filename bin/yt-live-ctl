@@ -9,7 +9,7 @@ function stop() {
 }
 
 function status() {
-    systemctl --user status yt-live.service | grep Active: | awk '{print $3}' | sed 's/[()]//g'                                       
+    systemctl --user status yt-live.service | grep Active: | sed -r 's/^.*\((.*)\).*$/\1/'                                     
 }
 
 function main() {
