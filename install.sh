@@ -12,7 +12,7 @@ function main() {
 
     pushd "${SCRIPT_DIR}/yt-live" || return 1
     poetry build -f wheel
-    pip3 install "$(ls dist | grep whl)"
+    pip3 install "dist/$(ls dist | grep whl)"
     popd || return 0
 }
 
