@@ -35,9 +35,6 @@ EOF
     fi
 
     systemctl --user daemon-reload
-
-    mkdir -p "${HOME}/.local/bin"
-    cp "${SCRIPT_DIR}/bin/yt-live-ctl" "${HOME}/.local/bin/"
 }
 
 main "$@" || (echo "Failed to install" 1>&2 && return 1)

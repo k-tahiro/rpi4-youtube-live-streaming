@@ -1,25 +1,57 @@
 #!/usr/bin/env bash
 
-function start() {
-    systemctl --user start yt-live.service
+function get_on() {
+    local status
+    status="$(ssh raspberrypi4 systemctl --user status yt-live | grep Active: | sed -r 's/^.*\((.*)\).*$/\1/')"
+    if [[ "${status}" == "running" ]]; then
+        return 0
+    else
+        return 1
+    fi
 }
 
-function stop() {
-    systemctl --user stop yt-live.service
+function getter() {
+    local characteristic="$1"
+    case "${characteristic}" in
+        "On") get_on && return 0;;
+        *) cat <<EOF 1>&2 && return 1;;
+Invalid characteristic is given. characteristic="${characteristic}"
+EOF
+    esac
 }
 
-function status() {
-    systemctl --user status yt-live.service | grep Active: | sed -r 's/^.*\((.*)\).*$/\1/'                                     
+function set_on() {
+    local option="$1"
+    if [[ "${option}" == "true" ]]; then
+        ssh raspberrypi4 systemctl --user start yt-live
+    else
+        ssh raspberrypi4 systemctl --user stop yt-live
+    fi
+}
+
+function setter() {
+    local characteristic="$1"
+    local option="$2"
+
+    case "${characteristic}" in
+        "On") set_on "${option}" && return 0;;
+        *) cat <<EOF 1>&2 && return 1;;
+Invalid characteristic is given. characteristic="${characteristic}"
+EOF
+    esac
 }
 
 function main() {
-    local cmd="$1"
-    case "${cmd}" in
-        "start") start && return 0 || return 1;;
-        "stop") stop && return 0 || return 1;;
-        "status") status && return 0 || return 1;;
-        *) cat <<EOF && return 1;;
-Usage: "$0" [start|stop|status]
+    local operation="$1"
+    local name="$2"
+    local characteristic="$3"
+    local option="$4"
+
+    case "${operation}" in
+        "Get") getter && return 0;;
+        "Set") setter && return 0;;
+        *) cat <<EOF 1>&2 && return 1;;
+Invalid operation is given. operation="${operation}"
 EOF
     esac
 }
