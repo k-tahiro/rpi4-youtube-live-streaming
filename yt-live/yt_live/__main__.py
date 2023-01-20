@@ -35,7 +35,7 @@ def _main(
     youtube.set_up_broadcast(title, privacy_status)
 
     discord_webhook_url = os.getenv("DISCORD_WEBHOOK_URL")
-    logger.info(f"{discord_webhook_url=}")
+    logger.info(f"discord_webhook_url={discord_webhook_url}")
     if discord_webhook_url:
         logger.info("Discord webhook will be called.")
         r = requests.post(
