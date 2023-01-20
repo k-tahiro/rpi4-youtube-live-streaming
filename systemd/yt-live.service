@@ -4,9 +4,8 @@ After=network.target
 
 [Service]
 User=pi
-ExecStart=poetry run yt_live
-RestartSec=30
-Restart=always
+ExecStart=yt_live
+Restart=no
 
 [Install]
 WantedBy=multi-user.target
