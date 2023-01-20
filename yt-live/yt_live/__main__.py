@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import datetime
 from logging import basicConfig
 from pathlib import Path
 
@@ -11,7 +11,7 @@ from .streamer.streamer import Streamer
 
 
 def _main(
-    title: str = f"{date.today()}",
+    title: str = datetime.now().isoformat(),
     api_key: str = "dummy",
     client_secrets_file: Path = Path("client_secret.json"),
     credentials_file: Path = Path("token.pickle"),
