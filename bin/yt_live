@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+function start() {
+    systemctl --user start yt-live.service
+}
+
+function stop() {
+    systemctl --user stop yt-live.service
+}
+
+function status() {
+    systemctl --user status yt-live.service | grep Active: | awk '{print $3}' | sed 's/[()]//g'                                       
+}
+
+function main() {
+    local cmd="$1"
+    case "${cmd}" in
+        "start") start && return 0 || return 1;;
+        "stop") stop && return 0 || return 1;;
+        "status") status && return 0 || return 1;;
+        *) cat <<EOF && return 1;;
+Usage: "$0" [start|stop|status]
+EOF
+    esac
+}
+
+main "$@"
