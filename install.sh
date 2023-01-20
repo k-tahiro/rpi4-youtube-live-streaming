@@ -4,8 +4,8 @@ set -ex
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 function main() {
-    mkdir -p "${HOME}/bin"
-    cp -r "${SCRIPT_DIR}/bin/yt_live" "${HOME}/bin/"
+    mkdir -p "${HOME}/.local/bin"
+    cp -r "${SCRIPT_DIR}/bin/yt_live" "${HOME}/.local/bin/"
 
     mkdir -p "${HOME}/.config/systemd/user"
     cp "${SCRIPT_DIR}/systemd/yt-live.service" "${HOME}/.config/systemd/user/"
