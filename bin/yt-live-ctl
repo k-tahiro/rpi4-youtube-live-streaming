@@ -4,9 +4,9 @@ function get_on() {
     local status
     status="$(ssh raspberrypi4 systemctl --user status yt-live | grep Active: | sed -r 's/^.*\((.*)\).*$/\1/')"
     if [[ "${status}" == "running" ]]; then
-        return 0
+        echo 1
     else
-        return 1
+        echo 0
     fi
 }
 
@@ -48,9 +48,9 @@ function main() {
     local option="$4"
 
     case "${operation}" in
-        "Get") getter && return 0;;
-        "Set") setter && return 0;;
-        *) cat <<EOF 1>&2 && return 1;;
+        "Get") getter && return 0 || return 66;;
+        "Set") setter && return 0 || return 66;;
+        *) cat <<EOF 1>&2 && return 66;;
 Invalid operation is given. operation="${operation}"
 EOF
     esac
