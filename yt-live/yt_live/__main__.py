@@ -3,6 +3,7 @@ from datetime import datetime
 from logging import basicConfig
 from pathlib import Path
 
+import requests
 import typer
 
 from .api.api import YouTubeAPI
@@ -31,6 +32,13 @@ def _main(
     streamer = Streamer(youtube.output_url, output_size)
 
     youtube.set_up_broadcast(title, privacy_status)
+    discord_webhook_url = os.getenv("DISCORD_WEBHOOK_URL")
+    if discord_webhook_url:
+        requests.post(
+            discord_webhook_url,
+            json={"content": youtube.message},
+        )
+
     streamer.run(capture_board, usb_mic)
 
 

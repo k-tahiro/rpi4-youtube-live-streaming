@@ -55,6 +55,8 @@ class YouTubeAPI:
         return credentials
 
     def set_up_broadcast(self, title: str, privacy_status: str = "private") -> None:
+        self.title = title
+
         response = self.live_broadcasts.insert(
             part="snippet,contentDetails,status",
             body={
@@ -84,3 +86,7 @@ class YouTubeAPI:
     @property
     def watch_url(self) -> str:
         return f"https://www.youtube.com/watch?v={self.live_broadcast_id}"
+
+    @property
+    def message(self) -> str:
+        return f"{self.title}\n{self.watch_url} @YouTubeより"
