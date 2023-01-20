@@ -48,8 +48,8 @@ function main() {
     local option="$4"
 
     case "${operation}" in
-        "Get") getter && return 0 || return 66;;
-        "Set") setter && return 0 || return 66;;
+        "Get") getter "${characteristic}" && return 0 || return 66;;
+        "Set") setter "${characteristic}" "${option}" && return 0 || return 66;;
         *) cat <<EOF 1>&2 && return 66;;
 Invalid operation is given. operation="${operation}"
 EOF
