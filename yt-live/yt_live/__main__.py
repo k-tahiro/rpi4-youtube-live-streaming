@@ -1,5 +1,5 @@
 import os
-from logging import basicConfig
+from logging import basicConfig, getLogger
 from pathlib import Path
 
 import requests
@@ -9,6 +9,8 @@ from .api.api import YouTubeAPI
 from .streamer.devices.capture_board import CaptureBoard
 from .streamer.devices.usb_mic import UsbMic
 from .streamer.streamer import Streamer
+
+logger = getLogger(__name__)
 
 
 def _main(
@@ -33,7 +35,8 @@ def _main(
     youtube.set_up_broadcast(title, privacy_status)
     discord_webhook_url = os.getenv("DISCORD_WEBHOOK_URL")
     if discord_webhook_url:
-        requests.post(
+        logger.info("Discord webhook will be called.")
+        r = requests.post(
             discord_webhook_url,
             json={
                 "embeds": [
@@ -45,6 +48,7 @@ def _main(
                 ]
             },
         )
+        logger.info(r)
 
     streamer.run(capture_board, usb_mic)
 

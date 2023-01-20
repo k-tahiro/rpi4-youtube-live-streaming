@@ -1,11 +1,14 @@
 import pickle
 from datetime import datetime
+from logging import getLogger
 from pathlib import Path
 
 from google.auth.transport.requests import Request
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
+
+logger = getLogger(__name__)
 
 
 class YouTubeAPI:
@@ -79,6 +82,8 @@ class YouTubeAPI:
             part="snippet", id=self.live_broadcast_id, streamId=self.live_stream_id
         ).execute()
 
+        logger.info("Broadcast setup is completed!")
+
     @property
     def output_url(self) -> str:
         return f"{self.stream_url}/{self.stream_key}"
@@ -86,7 +91,3 @@ class YouTubeAPI:
     @property
     def watch_url(self) -> str:
         return f"https://www.youtube.com/watch?v={self.live_broadcast_id}"
-
-    @property
-    def message(self) -> str:
-        return f"{self.title}\n{self.watch_url} @YouTubeより"
