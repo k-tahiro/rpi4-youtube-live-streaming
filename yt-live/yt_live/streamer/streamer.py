@@ -16,7 +16,6 @@ class VideoEncoding(NamedTuple):
 
 
 class Streamer:
-    STREAM_URL = "rtmp://a.rtmp.youtube.com/live2"
     VIDEO_ENCODING_MAPPING = {
         "720p": VideoEncoding("1280x720", "4000k"),
         "480p": VideoEncoding("854x480", "2000k"),
@@ -29,9 +28,11 @@ class Streamer:
 
     def __init__(
         self,
+        stream_url: str,
         stream_key: str,
         video_encoding_key: str = "480p",
     ) -> None:
+        self.stream_url = stream_url
         self.stream_key = stream_key
         self.video_encoding_key = video_encoding_key
 
@@ -40,7 +41,7 @@ class Streamer:
 
     @property
     def output(self) -> str:
-        return f"{self.STREAM_URL}/{self.stream_key}"
+        return f"{self.stream_url}/{self.stream_key}"
 
     def run(
         self, capture_board: CaptureBoard, usb_mic: Optional[UsbMic] = None
