@@ -54,6 +54,9 @@ def _main(
 
     streamer.run(capture_board, usb_mic)
 
+    youtube.conclude_broadcast()
+    logger.info("Broadcasting finished!")
+
 
 def main() -> None:
     typer.run(_main)

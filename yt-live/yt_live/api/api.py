@@ -84,6 +84,13 @@ class YouTubeAPI:
 
         logger.info("Broadcast setup is completed!")
 
+    def conclude_broadcast(self) -> None:
+        self.live_broadcasts.transition(
+            part="snippet,status",
+            id=self.live_broadcast_id,
+            broadcastStatus="complete",
+        ).execute()
+
     @property
     def output_url(self) -> str:
         return f"{self.stream_url}/{self.stream_key}"
