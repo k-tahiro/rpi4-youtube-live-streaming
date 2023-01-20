@@ -26,22 +26,12 @@ class Streamer:
     AUDIO_SAMPLE_RATE = "44.1k"
     AUDIO_BITRATE = "128k"
 
-    def __init__(
-        self,
-        stream_url: str,
-        stream_key: str,
-        video_encoding_key: str = "480p",
-    ) -> None:
-        self.stream_url = stream_url
-        self.stream_key = stream_key
+    def __init__(self, output_url: str, video_encoding_key: str = "480p") -> None:
+        self.output_url = output_url
         self.video_encoding_key = video_encoding_key
 
         video_encoding = self.VIDEO_ENCODING_MAPPING[video_encoding_key]
         self.video_size, self.video_bitrate, self.video_codec = video_encoding
-
-    @property
-    def output(self) -> str:
-        return f"{self.stream_url}/{self.stream_key}"
 
     def run(
         self, capture_board: CaptureBoard, usb_mic: Optional[UsbMic] = None
@@ -61,7 +51,7 @@ class Streamer:
         stream = ffmpeg.output(
             capture_board.vstream,
             astream,
-            self.output,
+            self.output_url,
             video_bitrate=self.video_bitrate,
             audio_bitrate=self.AUDIO_BITRATE,
             format="flv",

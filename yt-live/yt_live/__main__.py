@@ -28,7 +28,7 @@ def _main(
     client_secrets_file = Path(os.environ["CLIENT_SECRETS_FILE"])
     credentials_file = Path(os.getenv("CREDENTIALS_FILE", "token.pickle"))
     youtube = YouTubeAPI.from_files(api_key, client_secrets_file, credentials_file)
-    streamer = Streamer(youtube.stream_url, youtube.stream_key, output_size)
+    streamer = Streamer(youtube.output_url, output_size)
 
     youtube.set_up_broadcast(title, privacy_status)
     streamer.run(capture_board, usb_mic)

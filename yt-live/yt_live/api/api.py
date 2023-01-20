@@ -78,5 +78,9 @@ class YouTubeAPI:
         ).execute()
 
     @property
+    def output_url(self) -> str:
+        return f"{self.stream_url}/{self.stream_key}"
+
+    @property
     def watch_url(self) -> str:
         return f"https://www.youtube.com/watch?v={self.live_broadcast_id}"
