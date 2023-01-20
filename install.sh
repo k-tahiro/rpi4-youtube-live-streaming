@@ -16,7 +16,6 @@ function main() {
     mkdir -p "${HOME}/.config/systemd/user"
     cp "${SCRIPT_DIR}/systemd/yt-live.service" "${SYSTEMD_DIR}/"
 
-    systemctl --user daemon-reload
     if [[ ! -f "${OVERRIDE_CONF}" ]]; then
         read -p "Please input API Key: " API_KEY
         read -p "Please input the path of client_secret.json: " CLIENT_SECRETS_FILE
@@ -28,6 +27,8 @@ Environment=API_KEY=${API_KEY}
 Environment=CLIENT_SECRETS_FILE=${CLIENT_SECRETS_FILE}
 EOF
     fi
+
+    systemctl --user daemon-reload
 
     mkdir -p "${HOME}/.local/bin"
     cp "${SCRIPT_DIR}/bin/yt-live-ctl" "${HOME}/.local/bin/"
