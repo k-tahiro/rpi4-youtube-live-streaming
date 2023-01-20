@@ -3,7 +3,7 @@ Description=YouTube Live
 After=network.target
 
 [Service]
-ExecStart=/home/pi/.local/bin/yt-live "${BROADCAST_TITLE}"
+ExecStart=/home/pi/.local/bin/yt-live ${BROADCAST_TITLE}
 Restart=no
 
 [Install]
